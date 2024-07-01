@@ -1,3 +1,5 @@
+import sys
+import re
 
 numbers = {
     "I": 1,
@@ -17,9 +19,19 @@ def acceptable_chars(string):
         return True
     else:
         return False
+def validate_char_count(string):
+    result = re.findall("([I]{4,}|[V]{4,}|[X]{4,}|[L]{4,}|[C]{4,}|[D]{4,}|[M]{4,})", string)
+    if len(result) != 0:
+        return True
+    return False
+
 def roman_to_int(roman):
     #verifica se o numero contem apenas os caracteres romanos
     if not acceptable_chars(roman):
+        print(f"{roman}: Invalid Roman Number")
+        return -1
+
+    if validate_char_count(roman):
         print(f"{roman}: Invalid Roman Number")
         return -1
 
@@ -43,7 +55,5 @@ def roman_to_int(roman):
 
 
 if __name__ == "__main__":
-    roman = "III"
+    roman = sys.argv[1]
     print(f"{roman} = {roman_to_int(roman)}")
-
-
